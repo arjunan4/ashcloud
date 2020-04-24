@@ -24,7 +24,7 @@ jobs:
       run: lsb_release -d
       shell: bash
 
-    # Tests verify the list of gpg keys installed in system
+    # Tests verify the list of gpg keys installed in OS system
     - name: Verify gpg keys
       run: gpg --list-keys
       shell: bash
