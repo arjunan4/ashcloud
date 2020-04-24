@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: moduleTests
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -13,11 +13,10 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+  # First workflow job called "VerifyOSProperties"
   VerifyOSProperties:
-    # The type of runner that the job will run on
+    name: Verify Ubuntu OS properties
     runs-on: ubuntu-latest
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -27,4 +26,7 @@ jobs:
     - name: verify Ubuntu OS version
       run: lsb_release -d
       shell: bash
-
+      
+    - name: Verify gpg keys
+      run: gpg --list-keys
+      shell: bash
