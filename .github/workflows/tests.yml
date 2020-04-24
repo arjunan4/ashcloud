@@ -1,7 +1,6 @@
 name: moduleTests
 
-Controls when the action will run. Here workflow only
-triggers when a PR is opened, edited against master.
+Controls when the action will run. Here workflow only triggers when a PR is opened, edited against master.
 on:
   push:
     branches: [ master ]
@@ -9,8 +8,7 @@ on:
     types: [opened, edited]
     branches: [ master ]
 
-A workflow run is made up of one or more jobs that can run
-sequentially or in parallel.
+A workflow run is made up of one or more jobs that can run sequentially or in parallel.
 jobs:
   First workflow job called "Build"
   VerifyOSProperties:
