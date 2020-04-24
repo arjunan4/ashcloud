@@ -1,0 +1,19 @@
+name: Bump version
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+jobs:
+  GitTagCreate:
+    name: Git Tag Push for every PR merged
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Bash Script to bump Git tag
+        working-directory: ./scripts  
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_OWNER: arjunan4
+        run: bash create_git_tag.sh
+        shell: bash
