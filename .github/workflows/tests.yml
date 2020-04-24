@@ -1,0 +1,27 @@
+name: moduleTests
+
+Controls when the action will run. Here workflow only
+triggers when a PR is opened, edited against master.
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    types: [opened, edited]
+    branches: [ master ]
+
+A workflow run is made up of one or more jobs that can run
+sequentially or in parallel.
+jobs:
+  First workflow job called "Build"
+  VerifyOSProperties:
+    name: Verify Ubuntu OS properties
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: verify Ubuntu OS version
+        run: lsb_release -d
+        shell: bash
+
+      - name: Verify gpg keys
+        run: gpg --list-keys
+        shell: bash
