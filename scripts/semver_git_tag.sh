@@ -91,7 +91,9 @@ case $upgrade in
     ;;
 
   "major")
-    new_tag=$((${current_tag[0]}+1)).0.0 
+    info "current tag ${current_tag[0]}"
+    new_tag=$((${current_tag[0]}+1)).0.0
+    info "new tag details => $new_tag"
     ;;
 esac
 
