@@ -33,7 +33,7 @@ fi
 git fetch -q --all --tags
 tag=$(git describe --tags `git rev-list --tags --max-count=1`)
 
-#Verifies git tag exists
+#Verifies git tag exists.
 if [ -n "$tag" ]; then
     info "Git Tag exists for this repository ==> $tag"
 else
