@@ -19,12 +19,7 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE,  so your job can access it
     - uses: actions/checkout@v2
 
-    # Tests verify Ubuntu OS version installed
-    - name: verify Ubuntu OS version
-      run: lsb_release -d
-      shell: bash
-
     # Tests verify the list of gpg keys installed in OS system
-    - name: Verify gpg keys
-      run: gpg --list-keys
+    - name: Install bump version
+      run: pip3 install bumpversion
       shell: bash
