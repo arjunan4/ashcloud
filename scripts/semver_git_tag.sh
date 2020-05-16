@@ -32,10 +32,8 @@ fi
 #Fetching all git tags and filtering by latest one.Pranav_testing hat 
 git fetch -q --all --tags
 tag=$(git describe --tags `git rev-list --tags --max-count=1`)
-echo "Tag value $tag"
-existing_tag=$tag
 
-
+#Verifies git tag exists
 if [ -n "$tag" ]; then
     info "Git Tag exists for this repository ==> $tag"
 else
@@ -43,17 +41,18 @@ else
     existing_tag="0.0.0"
 fi
 
-echo "Existing tag $tag"
+info "Existing current tag is => $tag"
+
 #set the IFS value
 OIFS=$IFS
 IFS='.'
 read -ra current_tag <<< "$existing_tag"
 
-# #unset the IFS value
+#unset the IFS value
 IFS=$OIFS
 
 
-
+#Iterating file and assign the bump version details
 n=0
 while read line || [ -n "$line" ] ; 
 do  
@@ -70,7 +69,7 @@ read -ra ADDR <<< "$version_details"
 # #unset the IFS value
 IFS=$OIFS
 
-echo "USER INPUT => $version_details"
+info "USER INPUT in semver-bump.txt is => $version_details"
 if [ "${ADDR[0]}" = "B" ]; then
     upgrade="major"
 elif [ "${ADDR[1]}" = "B" ]; then
@@ -79,7 +78,7 @@ elif [ "${ADDR[2]}" = "B" ]; then
     upgrade="patch"
 fi
 
-echo "Upgrading the $upgrade"
+info "Upgrading $upgrade of git tag"
 
 case $upgrade in
 
@@ -96,7 +95,7 @@ case $upgrade in
     ;;
 esac
 
-echo "New git tag version is $new_tag"
+info "New git tag version would be => $new_tag"
 
 #get commit SHA for tagging
 commit=$(git rev-parse HEAD)
