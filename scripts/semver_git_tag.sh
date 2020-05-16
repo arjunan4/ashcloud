@@ -11,22 +11,39 @@ function error {
   echo -e "\033[1;31m$1\033[m" >&2
 }
 
+
+#change current directory to file path "semver-bump.txt"
 cd ../
 
-# get latest tag
+#If "semver-bump.txt" file does not exists, script will exit
+FILE='semver-bump.txt'
+if [ ! -f "$FILE" ]; then
+    error "$FILE does NOT exist, hence exiting script"
+    exit 1
+fi
+
+#If "semver-bump.txt" file has more than 1 line, script will exit
+actual_lines=$(< "$FILE" wc -l | sed -e 's/^[ \t]*//')
+if [ "$actual_lines" != 0 ]; then
+    error "Multiple line exists in $FILE file,hence exiting script"
+    exit 1
+fi
+
+#Fetching all git tags and filtering by latest one
 git fetch -q --all --tags
 tag=$(git describe --tags `git rev-list --tags --max-count=1`)
 echo "Tag value $tag"
 existing_tag=$tag
 
-if [ -n "$existing_tag" ]; then
-    echo "Git Tag exists for this repository ==> $existing_tag"
+
+if [ -n "$tag" ]; then
+    info "Git Tag exists for this repository ==> $tag"
 else
-    echo "No Git Tag found for this repository"
+    info "No Git Tag found for this repository"
     existing_tag="0.0.0"
 fi
 
-echo "Existing tag $existing_tag"
+echo "Existing tag $tag"
 #set the IFS value
 OIFS=$IFS
 IFS='.'
@@ -35,18 +52,7 @@ read -ra current_tag <<< "$existing_tag"
 # #unset the IFS value
 IFS=$OIFS
 
-FILE='semver-bump.txt'
 
-if [ ! -f "$FILE" ]; then
-    echo "$FILE does NOT exist"
-    exit 1
-fi
-actual_lines=$(< "$FILE" wc -l | sed -e 's/^[ \t]*//')
-
-if [ "$actual_lines" != 0 ]; then
-    echo "Multiple line exists in $FILE file"
-    exit 1
-fi
 
 n=0
 while read line || [ -n "$line" ] ; 
