@@ -38,7 +38,7 @@ if [ -n "$tag" ]; then
     info "Git Tag exists for this repository ==> $tag"
 else
     info "No Git Tag found for this repository"
-    existing_tag="0.0.0"
+    tag="0.0.0"
 fi
 
 info "Existing current tag is => $tag"
@@ -46,7 +46,7 @@ info "Existing current tag is => $tag"
 #set the IFS value
 OIFS=$IFS
 IFS='.'
-read -ra current_tag <<< "$existing_tag"
+read -ra current_tag <<< "$tag"
 
 #unset the IFS value
 IFS=$OIFS
