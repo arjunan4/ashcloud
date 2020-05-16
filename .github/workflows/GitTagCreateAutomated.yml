@@ -15,5 +15,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO_OWNER: arjunan4
-        run: bash create_git_tag.sh
+        run: bash semver_git_tag.sh
         shell: bash
