@@ -29,7 +29,7 @@ if [ "$actual_lines" != 0 ]; then
     exit 1
 fi
 
-#Fetching all git tags and filtering by latest one
+#Fetching all git tags and filtering by latest one.
 git fetch -q --all --tags
 tag=$(git describe --tags `git rev-list --tags --max-count=1`)
 echo "Tag value $tag"
